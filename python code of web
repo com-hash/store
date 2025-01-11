@@ -1,0 +1,32 @@
+import json
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+# Sample product data
+products = [
+    {"id": 1, "name": "Product 1", "price": 19.99},
+    {"id": 2, "name": "Product 2", "price": 29.99}
+]
+
+# Custom request handler class
+class RequestHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        # If the URL is '/products', return the product data
+        if self.path == '/products':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(products).encode('utf-8'))
+        else:
+            # If the path is not recognized, send a 404 error
+            self.send_response(404)
+            self.end_headers()
+
+# Set up and start the HTTP server
+def run(server_class=HTTPServer, handler_class=RequestHandler, port=8080):
+    server_address = ('', port)
+    httpd = server_class(server_address, handler_class)
+    print(f"Server running on port {port}...")
+    httpd.serve_forever()
+
+if __name__ == "__main__":
+    run()

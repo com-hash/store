@@ -1,0 +1,18 @@
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class ProductServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        out.println("<html><body>");
+        out.println("<h2>Welcome to Our Store</h2>");
+        out.println("<ul>");
+        out.println("<li>Product 1 - $19.99</li>");
+        out.println("<li>Product 2 - $29.99</li>");
+        out.println("</ul>");
+        out.println("</body></html>");
+    }
+}
